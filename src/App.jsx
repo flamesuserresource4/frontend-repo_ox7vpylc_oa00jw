@@ -1,7 +1,12 @@
 import Hero from './components/Hero'
 import HowItWorks from './components/HowItWorks'
+import Industries from './components/Industries'
+import WhyPyrix from './components/WhyPyrix'
 import LiveDemo from './components/LiveDemo'
 import Features from './components/Features'
+import Pricing from './components/Pricing'
+import Testimonials from './components/Testimonials'
+import Integrations from './components/Integrations'
 import Footer from './components/Footer'
 
 function App() {
@@ -12,8 +17,13 @@ function App() {
 
       <Hero />
       <HowItWorks />
+      <Industries />
+      <WhyPyrix />
       <LiveDemo />
       <Features />
+      <Pricing />
+      <Testimonials />
+      <Integrations />
       <Footer />
     </div>
   )
