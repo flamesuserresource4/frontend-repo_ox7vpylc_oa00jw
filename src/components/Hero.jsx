@@ -12,7 +12,7 @@ export default function Hero() {
     <section className="relative min-h-[90vh] w-full overflow-hidden bg-[radial-gradient(1200px_600px_at_50%_-10%,rgba(59,130,246,0.15),transparent),linear-gradient(to_bottom_right,#0b1020,#0a0f1a_40%,#0b0f16)] text-white">
       {/* 3D Aura */}
       <div className="absolute inset-0">
-        <Spline scene="https://prod.spline.design/4cHQr84zOGAHOehh/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+        <Spline scene="https://prod.spline.design/12w3jTHz4S8WORwK/scene.splinecode" style={{ width: '100%', height: '100%' }} />
       </div>
 
       {/* Holographic gradient overlay */}
