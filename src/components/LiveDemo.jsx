@@ -1,19 +1,36 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Phone, PhoneCall } from 'lucide-react'
+import { Phone, PhoneCall, CalendarCheck2 } from 'lucide-react'
 
-const sampleConversation = [
-  { role: 'agent', text: 'Hi! Thanks for calling. How can I help you today?' },
-  { role: 'user', text: 'I need to book a consultation for tomorrow afternoon.' },
-  { role: 'agent', text: 'Absolutely. I can do that. What time works best for you?' },
-  { role: 'user', text: 'Anytime after 2pm.' },
-  { role: 'agent', text: 'Got it. You’re booked for 2:30pm. You’ll receive a confirmation text in a moment.' },
+const script = [
+  { role: 'agent', text: 'Hi! You\'re through to Pyrix AI for Nova Dental. How can I help today?' },
+  { role: 'user', text: 'Hi, I\'d like to book a new patient consultation.' },
+  { role: 'agent', text: 'Happy to help. Do mornings or afternoons work better?' },
+  { role: 'user', text: 'Afternoons please.' },
+  { role: 'agent', text: 'Got it. I\'m seeing options this week on Wednesday at 2:00, 2:30, or 3:15. Which would you prefer?' },
+  { role: 'user', text: '2:30 works.' },
+  { role: 'agent', text: 'Perfect, a few quick details — can I get your full name?' },
+  { role: 'user', text: 'It\'s Jordan Rivera.' },
+  { role: 'agent', text: 'Thanks Jordan. Best contact number?' },
+  { role: 'user', text: '555‑0192.' },
+  { role: 'agent', text: 'Email for confirmation and forms?' },
+  { role: 'user', text: 'jordan@example.com.' },
+  { role: 'agent', text: 'Great. Any concerns you want the doctor to focus on?' },
+  { role: 'user', text: 'Teeth sensitivity on the left side.' },
+  { role: 'agent', text: 'Noted. I\'ve reserved Wednesday 2:30pm for you. I\'m sending a confirmation with directions and a calendar invite.' },
+  { role: 'user', text: 'Sounds good.' },
+  { role: 'agent', text: 'One more thing — would you like SMS reminders 24 hours and 2 hours before the appointment?' },
+  { role: 'user', text: 'Yes please.' },
+  { role: 'agent', text: 'Done. You\'re all set. Anything else I can help with?' },
+  { role: 'user', text: 'That\'s all. Thanks.' },
+  { role: 'agent', text: 'My pleasure. I\'ll stay on the line while your booking opens. You can also reschedule anytime via the link.' },
 ]
 
 export default function LiveDemo(){
   const audioRef = useRef(null)
   const [playing, setPlaying] = useState(false)
   const [index, setIndex] = useState(-1)
+  const [showCalendly, setShowCalendly] = useState(false)
 
   useEffect(() => {
     let t
@@ -21,14 +38,15 @@ export default function LiveDemo(){
       setIndex(0)
       t = setInterval(() => {
         setIndex(prev => {
-          if(prev >= sampleConversation.length - 1){
+          if(prev >= script.length - 1){
             clearInterval(t)
             setPlaying(false)
+            setTimeout(() => setShowCalendly(true), 800)
             return prev
           }
           return prev + 1
         })
-      }, 1600)
+      }, 1400)
     } else {
       setIndex(-1)
     }
@@ -40,6 +58,7 @@ export default function LiveDemo(){
       setPlaying(false)
       audioRef.current && audioRef.current.pause()
     } else {
+      setShowCalendly(false)
       setPlaying(true)
       audioRef.current && audioRef.current.play()
     }
@@ -54,12 +73,12 @@ export default function LiveDemo(){
       <div className="flex flex-col items-center gap-10">
         <div className="text-center">
           <h2 className="text-3xl sm:text-5xl font-extrabold bg-gradient-to-b from-slate-100 to-slate-300 bg-clip-text text-transparent">Live Demo</h2>
-          <p className="mt-3 text-slate-300/80">Call Pyrix AI and watch subtitles animate in real time.</p>
+          <p className="mt-3 text-slate-300/80">Realistic call flow with automatic booking at the end.</p>
         </div>
 
-        <div className="relative grid w-full grid-cols-1 items-start gap-8 sm:grid-cols-2">
+        <div className="relative grid w-full grid-cols-1 items-start gap-8 lg:grid-cols-3">
           {/* Phone UI */}
-          <div className="relative mx-auto w-[320px] overflow-hidden rounded-[2rem] border border-white/15 bg-gradient-to-b from-slate-900/40 to-slate-900/80 p-4 shadow-[0_15px_120px_rgba(59,130,246,0.25)] backdrop-blur">
+          <div className="relative mx-auto w-[320px] overflow-hidden rounded-[2rem] border border-white/15 bg-gradient-to-b from-slate-900/40 to-slate-900/80 p-4 shadow-[0_15px_120px_rgba(59,130,246,0.25)] backdrop-blur lg:col-span-1">
             <div className="rounded-[1.6rem] border border-white/10 bg-white/5 p-4 backdrop-blur">
               <div className="mx-auto h-[540px] rounded-[1.2rem] border border-white/10 bg-gradient-to-b from-slate-900/40 to-slate-900/80 p-6">
                 <div className="flex items-center justify-between text-slate-200">
@@ -83,8 +102,8 @@ export default function LiveDemo(){
           </div>
 
           {/* Subtitles */}
-          <div className="space-y-3">
-            {sampleConversation.map((m, i) => (
+          <div className="space-y-3 lg:col-span-1">
+            {script.map((m, i) => (
               <motion.div
                 key={i}
                 initial={{ y: 10, opacity: 0 }}
@@ -98,6 +117,30 @@ export default function LiveDemo(){
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Calendly */}
+          <div className="lg:col-span-1">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={showCalendly ? { opacity: 1, y: 0 } : { opacity: 0.4 }}
+              transition={{ duration: 0.5 }}
+              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur overflow-hidden"
+            >
+              <div className="flex items-center gap-2 px-5 py-3 border-b border-white/10 text-white/70 text-sm">
+                <CalendarCheck2 className="h-4 w-4 text-cyan-300" />
+                <span>Calendly • Auto‑booking</span>
+              </div>
+              <div className="aspect-[9/14] w-full">
+                <iframe
+                  title="Book with Pyrix AI"
+                  src="https://calendly.com/your-calendly/pyrix-ai-demo"
+                  className="h-full w-full"
+                  frameBorder="0"
+                />
+              </div>
+            </motion.div>
+            <p className="mt-2 text-xs text-white/60">When the conversation finishes, the calendar opens automatically.</p>
           </div>
         </div>
       </div>

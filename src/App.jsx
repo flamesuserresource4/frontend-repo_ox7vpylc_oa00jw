@@ -4,10 +4,10 @@ import Industries from './components/Industries'
 import WhyPyrix from './components/WhyPyrix'
 import LiveDemo from './components/LiveDemo'
 import Features from './components/Features'
-import Pricing from './components/Pricing'
 import Testimonials from './components/Testimonials'
-import Integrations from './components/Integrations'
 import Footer from './components/Footer'
+import Roadmap from './components/Roadmap'
+import BookingDemo from './components/BookingDemo'
 
 function App() {
   return (
@@ -21,9 +21,9 @@ function App() {
       <WhyPyrix />
       <LiveDemo />
       <Features />
-      <Pricing />
       <Testimonials />
-      <Integrations />
+      <Roadmap />
+      <BookingDemo />
       <Footer />
     </div>
   )
