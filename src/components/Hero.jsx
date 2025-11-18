@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Spline from '@splinetool/react-spline'
 import { Play, Volume2 } from 'lucide-react'
@@ -8,15 +9,43 @@ const headlineVariants = {
 }
 
 export default function Hero() {
+  const splineRef = useRef(null)
+
+  // Enable pointer-driven interactions by forwarding pointer events to Spline canvas
+  useEffect(() => {
+    const container = splineRef.current
+    if(!container) return
+    const forward = (e) => {
+      const canvas = container.querySelector('canvas')
+      if(!canvas) return
+      const evt = new PointerEvent(e.type, e)
+      canvas.dispatchEvent(evt)
+    }
+    container.addEventListener('pointermove', forward)
+    container.addEventListener('pointerdown', forward)
+    container.addEventListener('pointerup', forward)
+    container.addEventListener('touchstart', forward, { passive: true })
+    container.addEventListener('touchmove', forward, { passive: true })
+    container.addEventListener('touchend', forward)
+    return () => {
+      container.removeEventListener('pointermove', forward)
+      container.removeEventListener('pointerdown', forward)
+      container.removeEventListener('pointerup', forward)
+      container.removeEventListener('touchstart', forward)
+      container.removeEventListener('touchmove', forward)
+      container.removeEventListener('touchend', forward)
+    }
+  }, [])
+
   return (
-    <section className="relative min-h-[90vh] w-full overflow-hidden bg-[radial-gradient(1200px_600px_at_50%_-10%,rgba(59,130,246,0.15),transparent),linear-gradient(to_bottom_right,#0b1020,#0a0f1a_40%,#0b0f16)] text-white">
-      {/* 3D Aura */}
-      <div className="absolute inset-0">
+    <section className="relative min-h-[92vh] w-full overflow-hidden text-white">
+      {/* 3D Spline background */}
+      <div ref={splineRef} className="absolute inset-0">
         <Spline scene="https://prod.spline.design/12w3jTHz4S8WORwK/scene.splinecode" style={{ width: '100%', height: '100%' }} />
       </div>
 
-      {/* Holographic gradient overlay */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(closest-side,rgba(147,197,253,0.12),transparent_60%)]" />
+      {/* Liquid glass backdrop and tones */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(10,11,13,0.0)_0%,rgba(10,11,13,0.35)_30%,rgba(10,11,13,0.6)_100%)]" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 pt-28 pb-24">
         <motion.div
@@ -25,7 +54,7 @@ export default function Hero() {
           variants={headlineVariants}
           className="max-w-3xl"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 metallic-sheen">
             <span className="h-2 w-2 animate-pulse rounded-full bg-sky-400"></span>
             <span className="text-xs tracking-widest text-slate-200/80">PYRIX AI • VOICE AGENT</span>
           </div>
@@ -38,12 +67,12 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a href="#demo" className="group inline-flex items-center gap-3 rounded-xl bg-gradient-to-b from-slate-50 to-slate-300 px-6 py-3 text-slate-900 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.6)] hover:shadow-[0_0_30px_rgba(168,221,255,0.25)] transition">
+            <a href="#demo" className="group inline-flex items-center gap-3 rounded-xl bg-gradient-to-b from-slate-50 to-slate-300 px-6 py-3 text-slate-900 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.6)] hover:shadow-[0_0_30px_rgba(168,221,255,0.25)] transition on-light">
               <Play className="h-4 w-4" />
               <span className="font-semibold">Book a Demo</span>
             </a>
 
-            <button className="group relative inline-flex items-center gap-3 rounded-xl border border-sky-400/30 bg-white/5 px-6 py-3 backdrop-blur-md transition hover:bg-white/10">
+            <button className="group relative inline-flex items-center gap-3 rounded-xl glass px-6 py-3">
               <Volume2 className="h-4 w-4 text-sky-300" />
               <span className="font-semibold text-slate-200">Hear The AI in Action</span>
               {/* Hover waveform */}

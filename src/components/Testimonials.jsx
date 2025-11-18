@@ -14,10 +14,10 @@ const testimonials = [
 export default function Testimonials() {
   return (
     <section className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(600px_300px_at_20%_0%,rgba(99,102,241,0.25),transparent_60%),radial-gradient(700px_400px_at_80%_30%,rgba(56,189,248,0.25),transparent_60%)]" />
+      <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(600px_300px_at_20%_0%,rgba(255,255,255,0.08),transparent_60%),radial-gradient(700px_400px_at_80%_30%,rgba(255,255,255,0.08),transparent_60%)]" />
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300">Loved by modern teams</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-slate-100 to-slate-300">Loved by modern teams</h2>
           <p className="mt-2 text-white/60">Real stories from companies that never miss a call now.</p>
         </div>
 
@@ -33,7 +33,7 @@ export default function Testimonials() {
 
 function Marquee({ reverse }){
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur">
+    <div className="relative overflow-hidden rounded-2xl glass">
       <motion.div
         initial={{ x: reverse ? '-50%' : '0%' }}
         animate={{ x: reverse ? '0%' : '-50%' }}
@@ -50,9 +50,9 @@ function Marquee({ reverse }){
 
 function Card({ t }){
   return (
-    <div className="min-w-[320px] max-w-[360px] flex-1 rounded-xl border border-white/10 bg-white/5 p-5">
+    <div className="min-w-[320px] max-w-[360px] flex-1 rounded-xl glass p-5">
       <div className="flex items-start gap-3">
-        <div className="rounded-lg bg-white/10 p-2 border border-white/10">
+        <div className="rounded-lg glass p-2">
           <Quote className="h-5 w-5 text-cyan-300" />
         </div>
         <div>

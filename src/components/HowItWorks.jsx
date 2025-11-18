@@ -27,7 +27,7 @@ export default function HowItWorks(){
       title: 'Books Appointments Automatically',
       lines: ['Integrates with Google, Outlook, Calendly','Real-time booking','No double bookings'],
       hover: (
-        <div className="absolute inset-x-6 bottom-8 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur">
+        <div className="absolute inset-x-6 bottom-8 rounded-xl glass p-3">
           <div className="flex items-center justify-between text-xs text-slate-200/80">
             <span>11:30 AM</span>
             <span className="rounded bg-sky-400/20 px-2 py-0.5 text-sky-200">Booked</span>
@@ -46,7 +46,7 @@ export default function HowItWorks(){
         <div className="absolute inset-0 grid place-items-center">
           <div className="relative h-24 w-24">
             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-500/30 via-fuchsia-500/30 to-amber-400/30 blur-xl" />
-            <div className="absolute inset-2 rounded-full border border-white/20 backdrop-blur" />
+            <div className="absolute inset-2 rounded-full glass" />
           </div>
         </div>
       )
@@ -69,7 +69,7 @@ export default function HowItWorks(){
             whileInView="animate"
             viewport={{ once: true, amount: 0.3 }}
             variants={cardVariants}
-            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl transition will-change-transform hover:scale-[1.02]"
+            className="group relative overflow-hidden rounded-2xl glass p-6 transition will-change-transform hover:scale-[1.02]"
           >
             <div className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: 'radial-gradient(600px 200px at 50% 0%, rgba(56,189,248,0.12), transparent)' }} />
             <div className="relative z-10">
